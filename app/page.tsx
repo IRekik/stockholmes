@@ -4,7 +4,7 @@ import NewsCard from '../components/main/NewsCard';
 export default function Home() {
   return (
     <div>
-      <div className="flex justify-center items-center h-auto bg-green-800 py-10">
+      <div className="flex justify-center items-center h-auto bg-green-800 opacity-85 py-10">
         <div className="w-1/2 text-center">
           <div>
             <h1 className="text-3xl text-yellow-200 p-10">Welcome to Stockholmes</h1>
