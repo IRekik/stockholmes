@@ -1,11 +1,12 @@
 import React from 'react';
 import NewsCard from '../components/main/NewsCard';
+import StockGraphCard from '../components/main/StockGraphCard';
 
 export default function Home() {
   return (
     <div>
       <div className="flex justify-center items-center h-auto bg-green-800 opacity-85 py-10">
-        <div className="w-1/2 text-center">
+        <div className="w-2/3 text-center">
           <div>
             <h1 className="text-3xl text-yellow-200 p-10">Welcome to Stockholmes</h1>
           </div>
@@ -23,6 +24,40 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className="py-10 bg-yellow-100">
+        <div className="flex justify-center items-center h-full">
+          <div className="w-full max-w-6xl text-center">
+            <div className="text-center mb-8 text-green-800">
+              <h2 className="text-3xl font-bold text-gray-600 mb-4">Stocks on Fire</h2>
+              <p className="text-gray-800">Check out the stocks that are trending and making waves today!</p>
+            </div>
+            <div className="flex flex-wrap justify-center">
+              <StockGraphCard 
+                title="$GMO"
+                imageReference="/images/stocks/stock.jpg"
+              />
+              <StockGraphCard 
+                title="$PUTA"
+                imageReference="/images/stocks/stock.jpg"
+              />
+              <StockGraphCard 
+                title="$LULO"
+                imageReference="/images/stocks/stock.jpg"
+              />
+              <StockGraphCard 
+                title="$TSNA"
+                imageReference="/images/stocks/stock.jpg"
+              />
+              <StockGraphCard 
+                title="$BGQW"
+                imageReference="/images/stocks/stock.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="py-10 bg-gray-100">
         <div className="text-center mb-8 text-green-800">
           <h2 className="text-3xl font-bold mb-4">Your Recent News</h2>
@@ -30,19 +65,22 @@ export default function Home() {
         </div>
         <div className="flex flex-wrap justify-center">
           <NewsCard 
-            title="New Feature Released"
+            title="Oh my god! Elon, why!?"
             date="July 10, 2024"
-            description="We have just released a new feature to enhance your gaming experience."
+            description="Yesterday, the CEO of $TLNA was caught texting pregnant mothers to offer them MDMA. Shame on you, Elon Duck!"
+            imageReference="/images/articles/elon.jpg"
           />
           <NewsCard 
-            title="Maintenance Update"
+            title="Scandalous activities during G20"
             date="July 8, 2024"
-            description="Scheduled maintenance will occur this weekend. Please plan accordingly."
+            description="During the G20 that was held during Golden Week in Tokyo, the president of Madagascar allegedly defecated on the floor in the bathrooms. Expect that $MDG and $CHOCO fluctuates in value this week."
+            imageReference="/images/articles/pooper.jpg"
           />
           <NewsCard 
-            title="Community Event"
+            title="Burger Qween Foot Lettuce"
             date="July 5, 2024"
-            description="Join our community event this Friday for a chance to win prizes."
+            description="An employee at Burger Qween apparently inserted his feet inside lettuce containers. I would rather eat poop than Burger Qween food for now on!"
+            imageReference="/images/articles/burger-king.jpg"
           />
         </div>
       </div>
