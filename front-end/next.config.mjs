@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+import dotenv from 'dotenv';
 
-export default nextConfig;
+dotenv.config();
+
+export default {
+  env: {
+    SERVER: process.env.SERVER,
+  },
+};
