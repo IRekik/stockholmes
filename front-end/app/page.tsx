@@ -1,8 +1,30 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import NewsCard from '../components/main/NewsCard';
 import StockGraphCard from '../components/main/StockGraphCard';
+import { Article } from '../../common/types/DBTables';
+import { getAllArticles } from '@/utils/fetches/articlesFetches';
 
 export default function Home() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const fetchedArticles = await getAllArticles();
+        setArticles(fetchedArticles);
+      } catch (err) {
+        setError("Failed to fetch articles");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-center items-center h-auto bg-green-800 opacity-85 py-10">
@@ -64,24 +86,21 @@ export default function Home() {
           <p className="text-gray-600">Stay updated with the latest news and updates from Stockholmes.</p>
         </div>
         <div className="flex flex-wrap justify-center">
-          <NewsCard 
-            title="Oh my god! Elon, why!?"
-            date="July 10, 2024"
-            description="Yesterday, the CEO of $TLNA was caught texting pregnant mothers to offer them MDMA. Shame on you, Elon Duck!"
-            imageReference="/images/articles/elon.jpg"
-          />
-          <NewsCard 
-            title="Scandalous activities during G20"
-            date="July 8, 2024"
-            description="During the G20 that was held during Golden Week in Tokyo, the president of Madagascar allegedly defecated on the floor in the bathrooms. Expect that $MDG and $CHOCO fluctuates in value this week."
-            imageReference="/images/articles/pooper.jpg"
-          />
-          <NewsCard 
-            title="Burger Qween Foot Lettuce"
-            date="July 5, 2024"
-            description="An employee at Burger Qween apparently inserted his feet inside lettuce containers. I would rather eat poop than Burger Qween food for now on!"
-            imageReference="/images/articles/burger-king.jpg"
-          />
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            articles.map((article) => (
+              <NewsCard
+                id={article.id}
+                title={article.title}
+                date={new Date(article.creation_date).toLocaleDateString()}
+                description={article.description}
+                imageReference={article.img_ref || '/images/articles/default.jpg'}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

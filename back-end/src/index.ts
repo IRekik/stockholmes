@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(ROUTES.api.articles.getAllArticles, getAllArticlesRouter);
+console.log(ROUTES.api.articles.getArticle);
 app.use(ROUTES.api.articles.getArticle, getArticleRouter);
 
 app.use(ROUTES.api.users.createUser, createUserRouter);

@@ -1,7 +1,7 @@
 import { ROUTES } from "../../../common/constants/routePaths"; 
 
 export const getAllArticles = async () => {
-  const res = await fetch(ROUTES.api.articles.getAllArticles, {
+  const res = await fetch(`${process.env.SERVER}${ROUTES.api.articles.getAllArticles}`, {
     method: "GET",
   });
   if (!res.ok) throw new Error(await res.text());
@@ -10,7 +10,7 @@ export const getAllArticles = async () => {
 };
 
 export const getArticleById = async (id: number) => {
-  const res = await fetch(`${ROUTES.api.articles.getArticle.replace(':id', id.toString())}`, {
+  const res = await fetch(`${process.env.SERVER}${ROUTES.api.articles.getArticle}/${id}`, {
     method: "GET",
   });
   if (!res.ok) throw new Error(await res.text());
