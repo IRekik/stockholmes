@@ -1,4 +1,4 @@
-import { ROUTES } from "../../../common/routePaths"; 
+import { ROUTES } from "../../../common/constants/routePaths"; 
 import { RegistrationFieldsUsed } from "../../../common/types/fields";
 
 export const createUser = async (userData: RegistrationFieldsUsed) => {

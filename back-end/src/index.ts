@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from "cors";
 import dotenv from 'dotenv';
 import http from "http";
-import { ROUTES } from "../../common/routePaths";  
+import { ROUTES } from "../../common/constants/routePaths";  
 
 import getAllArticlesRouter from "./routes/articles/getAllArticles";
 import getArticleRouter from "./routes/articles/getArticle";

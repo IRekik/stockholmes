@@ -1,4 +1,4 @@
-import { ROUTES } from "../../../common/routePaths"; 
+import { ROUTES } from "../../../common/constants/routePaths"; 
 
 export const getAllArticles = async () => {
   const res = await fetch(ROUTES.api.articles.getAllArticles, {
