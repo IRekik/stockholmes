@@ -29,7 +29,10 @@ const ArticlePage: React.FC = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen items-center w-full pt-10">
-      {article ? (
+      {loading && (
+        <div>Loading</div>
+      )}
+      {article && (
         <div className="w-5/6 bg-white p-10 rounded-lg shadow-lg m-auto">
           <h1 className="text-3xl font-bold text-gray-800">{article.title}</h1>
           <p className="text-xs mt-1 mb-6">Created on: {new Date(article.creation_date).toLocaleDateString()}</p>
@@ -38,8 +41,6 @@ const ArticlePage: React.FC = () => {
             <p>{article.description}</p>
           </div>
         </div>
-      ) : (
-        <div>Article not found</div>
       )}
     </div>
   );
