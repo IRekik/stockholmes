@@ -1,16 +1,18 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface NewsCardProps {
+  id: Number;
   title: string;
   date: string;
   description: string;
   imageReference: string;
 }
 
-const NewsCard: React.FC<NewsCardProps> = ({ title, date, description, imageReference }) => {
+const NewsCard: React.FC<NewsCardProps> = ({ id, title, date, description, imageReference }) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4">
+    <Link className="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4" href={`/article/${id}`}>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2 text-green-800">{title}</div>
         <p className="text-gray-600 text-sm mb-2">{date}</p>
@@ -25,7 +27,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, date, description, imageRefe
           />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
