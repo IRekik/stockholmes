@@ -61,7 +61,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-green-800 opacity-85">
+    <div className="flex justify-center items-center h-screen bg-green-800">
       <div className="w-full max-w-3xl bg-white p-12 rounded-lg shadow-lg text-center">
         <h1 className="text-3xl font-bold mb-4 text-gray-800">Login to Stockholmes</h1>
         <form onSubmit={handleLogin} className="space-y-6 pb-8 pt-5">

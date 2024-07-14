@@ -2,7 +2,7 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <div className="flex justify-center items-center h-screen bg-green-800 opacity-85">
+    <div className="flex justify-center items-center h-screen bg-green-800 ">
       <div className="w-11/12 md:w-3/4 lg:w-1/2 bg-white p-10 rounded-lg shadow-xl">
         <h1 className="text-4xl font-extrabold mb-8 text-gray-800">About Us</h1>
         <p className="text-lg text-gray-600 leading-relaxed">

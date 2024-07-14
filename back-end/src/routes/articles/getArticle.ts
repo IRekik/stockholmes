@@ -1,5 +1,5 @@
 import express from "express";
-import knexInstance from "../../utils/db";
+import knexInstance from "../../utils/db/db";
 import { Article } from "../../../../common/types/DBTables";
 
 const router = express.Router();

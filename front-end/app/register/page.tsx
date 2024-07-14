@@ -61,7 +61,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-green-800 opacity-85">
+    <div className="flex justify-center items-center h-screen bg-green-800 ">
       <div className="w-full max-w-3xl bg-white p-12 rounded-lg shadow-lg text-center relative">
         <h1 className="text-3xl font-bold mb-4 text-gray-800">Register for Stockholmes</h1>
         <form className="space-y-6 pb-8 pt-5" onSubmit={handleSubmit}>

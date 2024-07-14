@@ -1,6 +1,6 @@
 import  express  from "express";
 import { Article } from "../../../../common/types/DBTables";
-import knexInstance from "../../utils/db";
+import knexInstance from "../../utils/db/db";
 
 const router = express.Router();
 router.get("/", async (req, res) => {
