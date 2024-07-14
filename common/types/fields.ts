@@ -7,3 +7,8 @@ export type RegistrationFields = {
 }
 
 export type RegistrationFieldsUsed = Omit<RegistrationFields, 'confirmPassword'>;
+
+export type AuthenticationFields = {
+  email: string;
+  password: string;
+}

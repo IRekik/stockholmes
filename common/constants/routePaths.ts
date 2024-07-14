@@ -6,7 +6,8 @@ export const ROUTES = {
       getThreeArticles: "/api/articles/get-three-articles"
     },
     users: {
-      createUser: "/api/users/create-user"
+      createUser: "/api/users/create-user",
+      authenticateUser: "/api/users/authenticate-user"
     }
   }
 }

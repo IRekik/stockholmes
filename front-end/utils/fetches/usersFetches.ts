@@ -1,5 +1,5 @@
 import { ROUTES } from "../../../common/constants/routePaths"; 
-import { RegistrationFieldsUsed } from "../../../common/types/fields";
+import { AuthenticationFields, RegistrationFieldsUsed } from "../../../common/types/fields";
 
 export const createUser = async (userData: RegistrationFieldsUsed) => {
   const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.createUser}`, {
@@ -10,6 +10,17 @@ export const createUser = async (userData: RegistrationFieldsUsed) => {
     body: JSON.stringify(userData),
   });
   if (!res.ok) throw new Error(await res.text());
-  const data = await res.json();
-  return data;
+  return res;
+};
+
+export const authenticateUser = async (userData: AuthenticationFields) => {
+  const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.authenticateUser}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res;
 };

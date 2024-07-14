@@ -1,7 +1,9 @@
 "use client";
 import React, { FormEvent, useEffect, useState } from 'react';
-import { RegistrationFields } from "../../../common/types/fields"; // Adjust the import based on your types
-import { createUser } from '@/utils/fetches/usersFetches';
+import { useRouter } from 'next/navigation';
+import { RegistrationFields } from "../../../common/types/fields";
+import { createUser } from '../../utils/fetches/usersFetches';
+import { Popup } from "../../components/general/Popup"
 
 export default function Register() {
   const [fields, setFields] = useState<RegistrationFields>({
@@ -12,6 +14,9 @@ export default function Register() {
     confirmPassword: "",
   });
   const [isRegisterDisabled, setIsRegisterDisabled] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -19,14 +24,6 @@ export default function Register() {
       ...prevFields,
       [id]: value,
     }));
-
-    const isEmpty = 
-      fields.firstName.length === 0 || 
-      fields.lastName.length === 0 ||
-      fields.email.length === 0 ||
-      fields.password.length === 0 || 
-      fields.confirmPassword.length === 0;
-    setIsRegisterDisabled(isEmpty);
   };
 
   useEffect(() => {
@@ -39,27 +36,38 @@ export default function Register() {
     setIsRegisterDisabled(isEmpty);
   }, [fields]);
 
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const { firstName, lastName, email, password } = fields;
-      await createUser({ firstName, lastName, email, password });
+      const result = await createUser(fields);
+      if (result.status !== 201) {
+        if (result.status !== 201) {
+          const errorMessage = await result.text();
+          throw new Error(`Registration failed: ${errorMessage}`);
+        }
+      }
       console.log("User registered successfully!");
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        router.push('/');
+      }, 2000);
     } catch (error) {
       console.error("Error registering user:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-
   return (
     <div className="flex justify-center items-center h-screen bg-green-800 opacity-85">
-      <div className="w-full max-w-3xl bg-white p-12 rounded-lg shadow-lg text-center">
+      <div className="w-full max-w-3xl bg-white p-12 rounded-lg shadow-lg text-center relative">
         <h1 className="text-3xl font-bold mb-4 text-gray-800">Register for Stockholmes</h1>
         <form className="space-y-6 pb-8 pt-5" onSubmit={handleSubmit}>
           <div className="flex space-x-4">
             <div className="w-1/2">
-              <label htmlFor="first-name" className="block text-gray-700">First Name</label>
+              <label htmlFor="firstName" className="block text-gray-700">First Name</label>
               <input
                 type="text"
                 id="firstName"
@@ -69,7 +77,7 @@ export default function Register() {
               />
             </div>
             <div className="w-1/2">
-              <label htmlFor="last-name" className="block text-gray-700">Last Name</label>
+              <label htmlFor="lastName" className="block text-gray-700">Last Name</label>
               <input
                 type="text"
                 id="lastName"
@@ -100,7 +108,7 @@ export default function Register() {
             />
           </div>
           <div>
-            <label htmlFor="confirm-password" className="block text-gray-700">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="block text-gray-700">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
@@ -110,19 +118,20 @@ export default function Register() {
             />
           </div>
           <div>
-          <button
+            <button
               type="submit"
               className={`w-full px-6 py-3 text-white rounded-lg transition duration-300 
-                ${isRegisterDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800 hover:bg-green-600'}`}
-              disabled={isRegisterDisabled}
+                ${isRegisterDisabled || isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800 hover:bg-green-600'}`}
+              disabled={isRegisterDisabled || isLoading}
             >
-              Register
+              {isLoading ? 'Registering...' : 'Register'}
             </button>
           </div>
         </form>
         <div className="mt-4 text-gray-600">
           <p>Already have an account? <a href="/login" className="text-green-800 hover:underline">Login here</a></p>
         </div>
+        {showPopup && <Popup message="Succesfully registered!" onClose={() => setShowPopup(false)} />}
       </div>
     </div>
   );

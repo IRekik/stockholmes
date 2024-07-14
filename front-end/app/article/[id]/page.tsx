@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Article } from "../../../../common/types/DBTables";
 import { getArticleById } from '@/utils/fetches/articlesFetches';
 import { usePathname } from "next/navigation";
+import Loading from '@/components/general/Loading';
 
 const ArticlePage: React.FC = () => {
   const [article, setArticle] = useState<Article | null>(null);
@@ -30,11 +31,11 @@ const ArticlePage: React.FC = () => {
   return (
     <div className="bg-gray-200 min-h-screen items-center w-full pt-10">
       {loading && (
-        <div>Loading</div>
+        <Loading />
       )}
       {article && (
         <div className="w-5/6 bg-white p-10 rounded-lg shadow-lg m-auto">
-          <h1 className="text-3xl font-bold text-gray-800">{article.title}</h1>
+          <h1 className="text-3xl font-bold text-green-800">{article.title}</h1>
           <p className="text-xs mt-1 mb-6">Created on: {new Date(article.creation_date).toLocaleDateString()}</p>
           {article.img_ref && <img src={article.img_ref} alt={article.title} className="mb-6" />}
           <div className="text-gray-700 text-base text-justify">

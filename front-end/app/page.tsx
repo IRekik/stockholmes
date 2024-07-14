@@ -39,7 +39,7 @@ export default function Home() {
             <div className="p-6 bg-white rounded-lg shadow-lg text-center">
               <h2 className="text-2xl font-bold mb-4 text-gray-800">Ready to Play?</h2>
               <p className="text-gray-600 mb-6">Join the fun and start your adventure now!</p>
-              <a href="/play-now">
+              <a href="/user/dashboard">
                 <button className="px-6 py-3 bg-green-800 text-white rounded-lg hover:bg-green-600 transition duration-300">
                   Play Now
                 </button>
