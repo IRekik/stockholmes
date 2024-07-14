@@ -1,5 +1,6 @@
 import express from "express";
 import knexInstance from "../../utils/db";
+import { Article } from "../../../../common/types/DBTables";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get("/:id", async (req, res) => {
     // Fetch the article from the database using knex
     const article = await knexInstance("articles")
       .where("id", id)
-      .first();
+      .first() as Article;
 
     if (!article) {
       console.log("Article not found:", id);

@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env.PG_PASSWORD);
-
 const knexInstance = knex({
   client: "pg",
   connection: {

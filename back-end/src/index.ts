@@ -7,6 +7,7 @@ import { ROUTES } from "../../common/constants/routePaths";
 import getAllArticlesRouter from "./routes/articles/getAllArticles";
 import getArticleRouter from "./routes/articles/getArticle";
 import createUserRouter from "./routes/users/createUser"
+import getThreeArticles from './routes/articles/getThreeArticles';
 
 dotenv.config();
 
@@ -17,8 +18,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use(ROUTES.api.articles.getAllArticles, getAllArticlesRouter);
-console.log(ROUTES.api.articles.getArticle);
 app.use(ROUTES.api.articles.getArticle, getArticleRouter);
+app.use(ROUTES.api.articles.getThreeArticles, getThreeArticles);
 
 app.use(ROUTES.api.users.createUser, createUserRouter);
 
