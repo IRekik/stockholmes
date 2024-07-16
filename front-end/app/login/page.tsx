@@ -41,9 +41,9 @@ export default function Login() {
     setError(null);
     
     try {
-      const response = 200;
+      const response = await authenticateUser(fields);
       
-      if (response === 200) {
+      if (response.status === 200) {
         console.log("User registered successfully!");
         setShowPopup(true);
         setTimeout(() => {

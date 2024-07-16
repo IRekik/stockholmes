@@ -8,6 +8,7 @@ import getAllArticlesRouter from "./routes/articles/getAllArticles";
 import getArticleRouter from "./routes/articles/getArticle";
 import createUserRouter from "./routes/users/createUser"
 import getThreeArticles from './routes/articles/getThreeArticles';
+import authenticateUser from './routes/users/authenticateUser';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(ROUTES.api.articles.getArticle, getArticleRouter);
 app.use(ROUTES.api.articles.getThreeArticles, getThreeArticles);
 
 app.use(ROUTES.api.users.createUser, createUserRouter);
+app.use(ROUTES.api.users.authenticateUser, authenticateUser);
 
 const httpServer = http.createServer(app);
 
