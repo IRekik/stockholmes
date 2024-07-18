@@ -25,7 +25,7 @@ router.post("/", async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Authentication successful" });
+    res.status(200).json({ message: "Authentication successful", user });
   } catch (error) {
     console.error("Error authenticating user:", error);
     res.status(500).json({ error: "Internal Server Error" });

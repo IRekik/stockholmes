@@ -1,7 +1,24 @@
-import React from 'react';
+"use client";
 
-const Dashboard = () => {
-  const userName = "Ismael";
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+
+const Dashboard: React.FC = () => {
+  const { isAuthenticated, user } = useAuth();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  const userName = "Josh";
   const userMoneyLeft = "$10,000";
 
   return (

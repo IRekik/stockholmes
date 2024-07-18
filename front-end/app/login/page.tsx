@@ -1,53 +1,41 @@
 "use client";
-import { Popup } from '@/components/general/Popup';
-import { authenticateUser } from '@/utils/fetches/usersFetches';
+
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { authenticateUser } from '@/utils/fetches/usersFetches';
+import { Popup } from '@/components/general/Popup';
 
-type LoginFields = {
-  email: string;
-  password: string;
-}
-
-export default function Login() {
-  const [fields, setFields] = useState<LoginFields>({
-    email: "",
-    password: "",
-  });
-  const [isLoginDisabled, setIsLoginDisabled] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const Login = () => {
+  const { isAuthenticated, login } = useAuth();
+  const [fields, setFields] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFields((prevFields) => ({
+    setFields(prevFields => ({
       ...prevFields,
       [id]: value,
     }));
   };
 
-  useEffect(() => {
-    const isEmpty = 
-      fields.email.length === 0 ||
-      fields.password.length === 0;
-    setIsLoginDisabled(isEmpty);
-  }, [fields]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const response = await authenticateUser(fields);
-      
+      const user = (await response.json() as any).user;
       if (response.status === 200) {
-        console.log("User registered successfully!");
+        console.log("User logged in successfully!");
         setShowPopup(true);
         setTimeout(() => {
           setShowPopup(false);
+          login(user);
           router.push('/user/dashboard');
         }, 2000);
       } else {
@@ -89,8 +77,8 @@ export default function Login() {
             <button
               type="submit"
               className={`w-full px-6 py-3 text-white rounded-lg transition duration-300 
-                ${isLoginDisabled || isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800 hover:bg-green-600'}`}
-                disabled={isLoginDisabled || isLoading}
+                ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800 hover:bg-green-600'}`}
+                disabled={isLoading}
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </button>
@@ -100,8 +88,10 @@ export default function Login() {
         <div className="mt-4 text-gray-600">
           <p>Don't have an account? <a href="/register" className="text-green-800 hover:underline">Register here</a></p>
         </div>
-        {showPopup && <Popup message="Succesfully registered!" onClose={() => setShowPopup(false)} />}
+        {showPopup && <Popup message="Logging in, please wait a moment." onClose={() => setShowPopup(false)} />}
       </div>
     </div>
   );
 }
+
+export default Login;
