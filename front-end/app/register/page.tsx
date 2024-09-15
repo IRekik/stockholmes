@@ -2,7 +2,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RegistrationFields } from "../../../common/types/fields";
-import { createUser } from '../../utils/fetches/usersFetches';
+import { checkExistence, createUser } from '../../utils/fetches/usersFetches';
 import { Popup } from "../../components/general/Popup"
 
 export default function Register() {
@@ -40,6 +40,11 @@ export default function Register() {
     e.preventDefault();
     setIsLoading(true);
     try {
+      const checkExistenceStatus = await checkExistence(fields.email);
+      if (checkExistenceStatus.status !== 201) {
+        throw new Error(`Registration failed: the account registed with ${fields.email} already exists`);
+      }
+
       const result = await createUser(fields);
       if (result.status !== 201) {
         if (result.status !== 201) {

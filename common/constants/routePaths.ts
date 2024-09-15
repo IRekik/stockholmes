@@ -7,7 +7,8 @@ export const ROUTES = {
     },
     users: {
       createUser: "/api/users/create-user",
-      authenticateUser: "/api/users/authenticate-user"
+      authenticateUser: "/api/users/authenticate-user",
+      checkExistence: "/api/users/check-existence"
     }
   }
 }

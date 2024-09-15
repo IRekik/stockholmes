@@ -86,7 +86,12 @@ const Login = () => {
         </form>
         {error && <p className="text-red-600 mt-4">{error}</p>}
         <div className="mt-4 text-gray-600">
-          <p>Don't have an account? <a href="/register" className="text-green-800 hover:underline">Register here</a></p>
+          <div className="w-fit  m-auto">
+            <div className="w-full text-left mb-1">
+              <a href="/login" className="text-green-800 hover:underline">Forgot password?</a>
+            </div>
+            <p className="w-fit">Don't have an account? <a href="/register" className="text-green-800 hover:underline">Register here</a></p>
+          </div>
         </div>
         {showPopup && <Popup message="Logging in, please wait a moment." onClose={() => setShowPopup(false)} />}
       </div>
