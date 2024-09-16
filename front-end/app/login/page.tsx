@@ -11,7 +11,7 @@ const Login = () => {
   const [fields, setFields] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +32,9 @@ const Login = () => {
       const user = (await response.json() as any).user;
       if (response.status === 200) {
         console.log("User logged in successfully!");
-        setShowPopup(true);
+        setShowSuccessPopup(true);
         setTimeout(() => {
-          setShowPopup(false);
+          setShowSuccessPopup(false);
           login(user);
           router.push('/user/dashboard');
         }, 2000);
@@ -86,14 +86,14 @@ const Login = () => {
         </form>
         {error && <p className="text-red-600 mt-4">{error}</p>}
         <div className="mt-4 text-gray-600">
-          <div className="w-fit  m-auto">
+          <div className="w-fit">
             <div className="w-full text-left mb-1">
               <a href="/login" className="text-green-800 hover:underline">Forgot password?</a>
             </div>
             <p className="w-fit">Don't have an account? <a href="/register" className="text-green-800 hover:underline">Register here</a></p>
           </div>
         </div>
-        {showPopup && <Popup message="Logging in, please wait a moment." onClose={() => setShowPopup(false)} />}
+        {showSuccessPopup && <Popup message="Logging in, please wait a moment." onClose={() => setShowSuccessPopup(false)} />}
       </div>
     </div>
   );

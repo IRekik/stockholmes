@@ -44,13 +44,10 @@ export default function Register() {
       if (checkExistenceStatus.status !== 201) {
         throw new Error(`Registration failed: the account registed with ${fields.email} already exists`);
       }
-
       const result = await createUser(fields);
       if (result.status !== 201) {
-        if (result.status !== 201) {
-          const errorMessage = await result.text();
-          throw new Error(`Registration failed: ${errorMessage}`);
-        }
+        const errorMessage = await result.text();
+        throw new Error(`Registration failed: ${errorMessage}`);
       }
       console.log("User registered successfully!");
       setShowPopup(true);

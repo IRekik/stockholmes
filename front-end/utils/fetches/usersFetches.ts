@@ -6,8 +6,8 @@ export const createUser = async (userData: RegistrationFieldsUsed) => {
   if (!process.env.SALT_ROUNDS) {
     throw new Error("Environment variable not loaded");
   }
-
-  const hashedPassword = await bcrypt.hash(userData.password, process.env.SALT_ROUNDS);
+  
+  const hashedPassword = await bcrypt.hash(userData.password, parseInt(process.env.SALT_ROUNDS, 10));
   userData.password = hashedPassword;
 
   const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.createUser}`, {
@@ -34,7 +34,7 @@ export const authenticateUser = async (userData: AuthenticationFields) => {
 };
 
 export const checkExistence = async (email: String) => {
-  const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.checkExistence}`, {
+  const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.checkExistence}?email=${encodeURIComponent(email)}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
