@@ -1,5 +1,5 @@
 import { ROUTES } from "../../../common/constants/routePaths"; 
-import { AuthenticationFields, RegistrationFieldsUsed } from "../../../common/types/fields";
+import { AuthenticationFields, RegistrationFieldsUsed, ResetPasswordFields } from "../../../common/types/fields";
 import bcrypt from "bcryptjs"
 
 export const createUser = async (userData: RegistrationFieldsUsed) => {
@@ -33,12 +33,24 @@ export const authenticateUser = async (userData: AuthenticationFields) => {
   return res;
 };
 
-export const checkExistence = async (email: String) => {
+export const checkExistence = async (email: string) => {
   const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.checkExistence}?email=${encodeURIComponent(email)}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
+  });
+  
+  return res;
+};
+
+export const sendPasswordResetMail = async (userData: ResetPasswordFields) => {
+  const res = await fetch(`${process.env.SERVER}${ROUTES.api.users.sendPasswordResetMail}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData)
   });
   
   return res;

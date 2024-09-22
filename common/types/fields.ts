@@ -12,3 +12,7 @@ export type AuthenticationFields = {
   email: string;
   password: string;
 }
+
+export type ResetPasswordFields = {
+  email: string;
+}

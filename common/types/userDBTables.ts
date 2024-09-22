@@ -12,3 +12,10 @@ export type User = {
 };
 
 export type UserWithoutSensitiveInfo = Omit<User, 'id' | 'created_at' | 'updated_at' | 'last_login'>;
+
+export type UserPasswordReset = {
+  user_id: number;
+  resetToken: string;
+  isCompleted: boolean | null;
+  send_at: Date | null;
+};
