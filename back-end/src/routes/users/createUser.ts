@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 import knexInstance from "../../utils/db/user_db";
 import { RegistrationFields } from "../../../../common/types/fields";
 
 const router = express.Router();
 
 router.post("/", async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password } = req.body as RegistrationFields;
+  const { firstName, lastName, email, password } =
+    req.body as RegistrationFields;
 
   try {
     if (!process.env.SALT_ROUNDS) {
@@ -15,15 +16,13 @@ router.post("/", async (req: Request, res: Response) => {
 
     const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10);
 
-    const salt = await bcrypt.genSalt(SALT_ROUNDS);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     const insertedId = await knexInstance("users").insert({
       first_name: firstName,
       last_name: lastName,
       email,
       password: hashedPassword,
-      salt,
       is_SU: true,
     });
 

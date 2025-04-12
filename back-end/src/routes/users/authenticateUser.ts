@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import knexInstance from "../../utils/db/user_db";
 import { AuthenticationFields } from "../../../../common/types/fields";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import { User } from "../../../../common/types/userDBTables";
 
 const router = express.Router();
@@ -11,9 +11,7 @@ router.post("/", async (req: Request, res: Response) => {
 
   try {
     // Check if the user exists in the database
-    const user = await knexInstance("users")
-      .where({ email })
-      .first() as User;
+    const user = (await knexInstance("users").where({ email }).first()) as User;
 
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password" });
